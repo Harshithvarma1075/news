@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>News App</title>
+  <title>Space & Science News</title>
 
   <style>
 
@@ -16,7 +16,7 @@
     }
 
     body{
-      background:#f2f2f2;
+      background:#e9eef5;
       padding:30px;
     }
 
@@ -147,14 +147,14 @@
 
   <div class="container">
 
-    <h1>Latest News App</h1>
+    <h1>🚀 Space & Science News</h1>
 
     <div class="search-box">
 
       <input 
         type="text" 
         id="search" 
-        placeholder="Enter topic like sports, tech"
+        placeholder="Search topics like NASA, SpaceX, Mars"
       >
 
       <button onclick="getNews()">
@@ -167,19 +167,19 @@
 
     <div id="defaultContent">
 
-      <h2>📰 Welcome to News App</h2>
+      <h2>🌌 Welcome to Space News Hub</h2>
 
       <p>
-        Search for latest news on technology, sports, AI, movies and more.
+        Search for the latest space, science and astronomy news updates.
       </p>
 
       <div class="topics">
 
-        <span>Technology</span>
-        <span>Sports</span>
-        <span>Business</span>
-        <span>AI</span>
-        <span>Movies</span>
+        <span>NASA</span>
+        <span>SpaceX</span>
+        <span>Mars</span>
+        <span>Moon</span>
+        <span>Astronomy</span>
 
       </div>
 
@@ -214,9 +214,7 @@
 
       defaultContent.style.display = "none";
 
-      let apiKey = "a8649e5c732a5b5215ab6f8cf2636a12";
-
-      let url = `https://gnews.io/api/v4/search?q=${search}&lang=en&max=10&apikey=${apiKey}`;
+      let url = `https://api.spaceflightnewsapi.net/v4/articles/?search=${search}`;
 
       try{
 
@@ -230,21 +228,21 @@
 
         let data = await response.json();
 
-        if(data.articles.length === 0){
+        if(data.results.length === 0){
 
           message.innerHTML = "No news found";
 
           return;
         }
 
-        data.articles.slice(0,6).forEach(function(news){
+        data.results.slice(0,6).forEach(function(news){
 
           newsContainer.innerHTML += `
 
             <div class="card">
 
               <img 
-                src="${news.image || 'https://via.placeholder.com/300'}"
+                src="${news.image_url}"
               >
 
               <div class="card-content">
@@ -252,7 +250,7 @@
                 <h2>${news.title}</h2>
 
                 <p>
-                  ${news.description || "No description available"}
+                  ${news.summary.slice(0,120)}...
                 </p>
 
                 <a href="${news.url}" target="_blank">
