@@ -216,7 +216,7 @@
 
       let apiKey = "a8649e5c732a5b5215ab6f8cf2636a12";
 
-      let url = `https://gnews.io/api/v4/search?q=${search}&apikey=YOUR_API_KEY`;
+      let url =`https://gnews.io/api/v4/search?q=${search}&lang=en&country=in&max=10&apikey=${apiKey}`;
 
       try{
 
@@ -244,7 +244,7 @@
             <div class="card">
 
               <img 
-                src="${news.urlToImage || 'https://via.placeholder.com/300'}"
+                src="${news.image || 'https://via.placeholder.com/300'}"
               >
 
               <div class="card-content">
